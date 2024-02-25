@@ -14,12 +14,12 @@ use Composer\Script\Event;
 class ComposerScripts {
 
   /**
-   * Clones Drupal core if it's not already in repos/drupal.
+   * Clones Drupal core if it's not already in repos/drupal/core.
    *
    * Script for the 'post-root-package-install' event.
    */
   public static function postRootPackageInstall(Event $event) {
-    if (!file_exists('repos/drupal/.git')) {
+    if (!file_exists('repos/drupal/core/.git')) {
       $io = $event->getIO();
 
       if (!file_exists('repos')) {
@@ -31,7 +31,7 @@ class ComposerScripts {
       $project_root = getcwd();
       chdir('repos');
 
-      $io->write("Cloning Drupal core into 'repos/drupal'.");
+      $io->write("Cloning Drupal core into 'repos/drupal/core'.");
 
       system('git clone https://git.drupalcode.org/project/drupal.git');
 
@@ -59,29 +59,32 @@ class ComposerScripts {
 
     chdir('..');
     // Symlink the top-level vendor folder into the Drupal core git repo.
-    static::makeSymlink('../../vendor', 'repos/drupal/vendor');
+    static::makeSymlink('../../../vendor', 'repos/drupal/core/vendor');
 
     // Symlink the libraries folder into the Drupal core git repo.
-    static::makeSymlink('../../web/libraries', 'repos/drupal/libraries');
+    if (!file_exists('web/libraries')) {
+      mkdir('web/libraries');
+    }
+    static::makeSymlink('../../../web/libraries', 'repos/drupal/core/libraries');
 
     // Symlink external and custom folders into the Drupal core git repo.
     foreach (['modules', 'profiles', 'sites', 'themes'] as $dir) {
       foreach (scandir("web/$dir") as $sub) {
-        if (!file_exists("repos/drupal/$dir/$sub") && is_dir("web/$dir/$sub")) {
-          static::makeSymlink("../../../web/$dir/$sub", "repos/drupal/$dir/$sub");
+        if (!file_exists("repos/drupal/core/$dir/$sub") && is_dir("web/$dir/$sub")) {
+          static::makeSymlink("../../../../web/$dir/$sub", "repos/drupal/core/$dir/$sub");
         }
       }
     }
 
     // Symlink sites files and folders into the the Drupal core git repo.
     foreach (scandir('web/sites') as $file) {
-      if (!file_exists("repos/drupal/sites/$file")) {
-        static::makeSymlink("../../../web/sites/$file", "repos/drupal/sites/$file");
+      if (!file_exists("repos/drupal/core/sites/$file")) {
+        static::makeSymlink("../../../../web/sites/$file", "repos/drupal/core/sites/$file");
       }
     }
     foreach (scandir('web/sites/default') as $file) {
-      if (!file_exists("repos/drupal/sites/default/$file")) {
-        static::makeSymlink("../../../../web/sites/default/$file", "repos/drupal/sites/default/$file");
+      if (!file_exists("repos/drupal/core/sites/default/$file")) {
+        static::makeSymlink("../../../../../web/sites/default/$file", "repos/drupal/core/sites/default/$file");
       }
     }
 
@@ -94,7 +97,7 @@ class ComposerScripts {
     }
 
     // Symlink the simpletest folder into the Drupal core git repo.
-    static::makeSymlink('../../../web/sites/simpletest', 'repos/drupal/sites/simpletest');
+    static::makeSymlink('../../../../web/sites/simpletest', 'repos/drupal/core/sites/simpletest');
   }
 
   /**

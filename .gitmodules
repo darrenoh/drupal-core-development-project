@@ -1,0 +1,15 @@
+[submodule "repos/retrofit-drupal/retrofit"]
+	path = repos/retrofit-drupal/retrofit
+	url = git@github.com:darrenoh/retrofit.git
+[submodule "repos/drupal/core"]
+	path = repos/drupal/core
+	url = git@git.drupal.org:project/drupal.git
+[submodule "repos/drupal/ctools"]
+	path = repos/drupal/ctools
+	url = git@git.drupal.org:project/ctools.git
+[submodule "repos/drupal/template_field"]
+	path = repos/drupal/template_field
+	url = git@git.drupal.org:project/template_field.git
+[submodule "repos/drupal/manifest"]
+	path = repos/drupal/manifest
+	url = git@git.drupal.org:project/manifest.git

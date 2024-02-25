@@ -6,34 +6,95 @@
     "repositories": [
         {
             "type": "path",
-            "url": "repos/drupal",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
             "url": "repos/drupal/core"
         },
         {
             "type": "path",
-            "url": "repos/drupal/composer/Metapackage/CoreRecommended"
+            "url": "repos/drupal/core/core"
         },
         {
             "type": "path",
-            "url": "repos/drupal/composer/Metapackage/DevDependencies"
+            "url": "repos/drupal/core/composer/Metapackage/CoreRecommended"
         },
         {
             "type": "path",
-            "url": "repos/drupal/composer/Plugin/ProjectMessage"
+            "url": "repos/drupal/core/composer/Metapackage/DevDependencies"
         },
         {
             "type": "path",
-            "url": "repos/drupal/composer/Plugin/Scaffold"
+            "url": "repos/drupal/core/composer/Plugin/ProjectMessage"
         },
         {
             "type": "path",
-            "url": "repos/drupal/composer/Plugin/VendorHardening"
+            "url": "repos/drupal/core/composer/Plugin/Scaffold"
+        },
+        {
+            "type": "path",
+            "url": "repos/drupal/core/composer/Plugin/VendorHardening"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "drupal/ctools",
+                "version": "dev-1.x",
+                "type": "drupal-module",
+                "dist": {
+                    "type": "path",
+                    "url": "repos/drupal/ctools"
+                },
+                "require": {
+                    "retrofit-drupal/retrofit": "*"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "drupal/manifest",
+                "version": "dev-1.x",
+                "type": "drupal-module",
+                "dist": {
+                    "type": "path",
+                    "url": "repos/drupal/manifest"
+                },
+                "require": {
+                    "retrofit-drupal/retrofit": "*"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "drupal/template_field",
+                "version": "dev-1.x",
+                "type": "drupal-module",
+                "dist": {
+                    "type": "path",
+                    "url": "repos/drupal/template_field"
+                },
+                "require": {
+                    "drupal/ctools": "*",
+                    "drupal/libraries": "*",
+                    "mustache/mustache": "^2",
+                    "retrofit-drupal/retrofit": "*"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "mustache/mustache",
+                "version": "v2.14.1",
+                "type": "drupal-library",
+                "dist": {
+                    "type": "tar",
+                    "url": "https://github.com/bobthecow/mustache.php/archive/refs/tags/v2.14.1.tar.gz"
+                }
+            }
+        },
+        {
+            "type": "path",
+            "url": "repos/retrofit-drupal/retrofit"
         },
         {
             "type": "composer",
@@ -42,11 +103,11 @@
     ],
     "require": {
         "composer/installers": "^1.9 | ^2",
-        "drupal/core-composer-scaffold": "*",
-        "drupal/drupal": "*",
         "drupal/core": "*",
+        "drupal/core-composer-scaffold": "*",
         "drupal/core-dev": "*",
         "drupal/core-recommended": "*",
+        "drupal/drupal": "*",
         "drush/drush": "^12",
         "phpspec/prophecy-phpunit": "*",
         "symfony/var-dumper": "^5.4 | ^6.2"
@@ -83,7 +144,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Drupal\\Composer\\": "repos/drupal/composer"
+            "Drupal\\Composer\\": "repos/drupal/core/composer"
         }
     },
     "extra": {
